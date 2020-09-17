@@ -1,0 +1,26 @@
+{
+  "name": "tencent-cloud-webpack-plugin",
+  "version": "1.0.0",
+  "description": "tencent cloud cos webpack plugin",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/liubrook/tentent-cloud-webpack-plugin.git"
+  },
+  "keywords": [
+    "tencent",
+    "qcloud",
+    "cos",
+    "webpack",
+    "plugin"
+  ],
+  "author": "liubrook",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/liubrook/tentent-cloud-webpack-plugin/issues"
+  },
+  "homepage": "https://github.com/liubrook/tentent-cloud-webpack-plugin#readme"
+}
