@@ -4,25 +4,30 @@ const fs = require('fs');
 const COS = require('cos-nodejs-sdk-v5');
 const path = require('path');
 const ora = require('ora');
-const isRegExp = require('loadsh.isregexp');
+const isRegExp = require('lodash.isregexp');
 
-const REGEXP = /\[hash(?::(\d+))?\]/gi;
+// Constants
+const REGEXP_HASH = /\[hash(?::(\d+))?\]/gi;
 
+// Uploading progress tip
 const tip = (uploaded, total) => {
     let percentage = total == 0 ? 0 : Math.round((uploaded / total) * 100);
-    return `Uploading to Tencent COS: ${percentage == 0 ? '' : percentage + '%'}${uploaded}/${total} files uploaded`;
-}
+    return `Uploading to Tencent COS: ${percentage == 0 ? '' : percentage + '% '}${uploaded}/${total} files uploaded`;
+};
 
+// Replace path variable by hash with length
 const withHashLength = replacer => {
     return function(_, hashLength) {
         const length = hashLength && parseInt(hashLength, 10);
         const hash = replacer.apply(this, arguments);
         return length ? hash.slice(0, length) : hash;
-    }
-}
+    };
+};
 
+// Perform hash replacement
 const getReplacer = (value, allowEmpty) => {
     return function(match) {
+        // last argument in replacer is the entire input string
         const input = arguments[arguments.length - 1];
         if (value === null || value === undefined) {
             if (!allowEmpty) throw new Error(`Path variable ${match} not implemented in this context of qn-webpack plugin: ${input}`);
@@ -30,8 +35,8 @@ const getReplacer = (value, allowEmpty) => {
         } else {
             return `${value}`;
         }
-    }
-}
+    };
+};
 
 module.exports = class CosPlugin {
     constructor(options) {
@@ -143,4 +148,4 @@ module.exports = class CosPlugin {
             execStack().then(() => _finish(), _finish);
         });
     }
-}
+};
